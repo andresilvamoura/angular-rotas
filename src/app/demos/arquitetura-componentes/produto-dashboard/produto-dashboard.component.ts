@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { fromEvent, Observable } from 'rxjs';
+import { ProdutoCountComponent } from '../componentes/produto-count.component';
 import { Produto } from '../models/produto';
 
 @Component({
@@ -6,11 +8,14 @@ import { Produto } from '../models/produto';
   templateUrl: './produto-dashboard.component.html',
   styles: []
 })
-export class ProdutoDashboardComponent implements OnInit {
+export class ProdutoDashboardComponent implements OnInit, AfterViewInit {
 
   produtos: Produto[]
 
-  constructor() { }
+  @ViewChild(ProdutoCountComponent, { static: false }) contador: ProdutoCountComponent;
+  @ViewChild('elemento', { static: false }) mensagemTela: ElementRef;
+
+    constructor() { }
 
   ngOnInit() {
     this.produtos = [{
@@ -57,8 +62,21 @@ export class ProdutoDashboardComponent implements OnInit {
     }];
   }
 
+  ngAfterViewInit(): void {
+    console.log('Onjeto do contafor: ', this.contador.produtos);
+    
+   
+    let clickTexto: Observable<any> = fromEvent(this.mensagemTela.nativeElement, 'click')
+    clickTexto.subscribe(() => {
+      alert('Clicou no texto');
+      return;
+    })
+  } 
+
   mudarStatus(event: Produto) {
     event.ativo = !event.ativo;
   }
+
+
 
 }
