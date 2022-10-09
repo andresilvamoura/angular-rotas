@@ -6,23 +6,25 @@ import { CadastroComponent } from './demos/reactiveForms/cadastro/cadastro.compo
 import { NotFoundComponent } from './navegacao/not-found/not-found.component';
 
 const rootRouterConfig: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full'},
-    { path: 'home', component: HomeComponent},
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent },
     { path: 'sobre', component: SobreComponent },
     { path: 'cadastro', component: CadastroComponent },
-    { path: 'produtos', 
-            loadChildren: () => import('./demos/arquitetura-componentes/produto.module')
-            .then(m => m.ProdutoModule)},
+    {
+        path: 'produtos',
+        loadChildren: () => import('./demos/arquitetura-componentes/produto.module')
+            .then(m => m.ProdutoModule)
+    },
 
-    { path: '**', component: NotFoundComponent },        
+    { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
-    imports:[
-        RouterModule.forRoot(rootRouterConfig)
+    imports: [
+        RouterModule.forRoot(rootRouterConfig, { enableTracing: false })
     ],
     exports: [
         RouterModule
     ]
 })
-export class AppRoutingModule{}
+export class AppRoutingModule { }
