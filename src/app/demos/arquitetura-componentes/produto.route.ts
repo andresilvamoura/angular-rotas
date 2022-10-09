@@ -13,7 +13,8 @@ const produtoRouterConfig: Routes = [
             {
                 path: ':estado',
                 component: ProdutoDashboardComponent,
-                resolve: { produtos: ProdutoResolve }
+                resolve: { produtos: ProdutoResolve },
+                data: { teste: 'Teste de dados passado por rotas' }
             },
             { path: 'editar/:id', component: EditarProdutosComponent }
         ]
